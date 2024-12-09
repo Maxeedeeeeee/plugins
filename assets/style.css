@@ -1,1 +1,22 @@
-
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #2C2F33;
+    color: #FFF;
+    margin: 0;
+    padding: 0;
+}
+header {
+    background-color: #23272A;
+    text-align: center;
+    padding: 20px;
+}
+header h1 {
+    color: #43B581;
+}
+.plugin {
+    background-color: #3E4347;
+    border: 1px solid #7289DA;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 10px;
+}
