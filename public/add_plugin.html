@@ -1,1 +1,37 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Plugin - PvpClub Plugins</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Add a Plugin</h1>
+    </header>
+    <main>
+        <form id="add-plugin-form" action="/server/upload_plugin.php" method="POST">
+            <label for="name">Plugin Name:</label>
+            <input type="text" id="name" name="name" required>
+            
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" required></textarea>
+            
+            <label for="version_from">Minecraft Version (From):</label>
+            <input type="text" id="version_from" name="version_from" placeholder="e.g., 1.16" required>
+            
+            <label for="version_to">Minecraft Version (To):</label>
+            <input type="text" id="version_to" name="version_to" placeholder="e.g., 1.20 (or leave blank for all versions)">
+            
+            <label for="java_version">Java Version:</label>
+            <input type="text" id="java_version" name="java_version" placeholder="e.g., Java 17" required>
+            
+            <label for="download_url">Download URL:</label>
+            <input type="url" id="download_url" name="download_url" placeholder="Direct link to the plugin file" required>
+            
+            <button type="submit">Add Plugin</button>
+        </form>
+    </main>
+</body>
+</html>
