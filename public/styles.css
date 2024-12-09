@@ -1,1 +1,22 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #101010;
+    color: #fff;
+    text-align: center;
+}
 
+header {
+    background-color: #0d6efd;
+    padding: 20px;
+}
+
+.filter {
+    margin: 20px;
+}
+
+.plugin {
+    background-color: #202020;
+    margin: 10px;
+    padding: 15px;
+    border-radius: 5px;
+}
