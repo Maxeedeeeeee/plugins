@@ -32,6 +32,11 @@
     </div>
 
     <script>
+        // Check if the user is logged in as admin using localStorage
+        if (localStorage.getItem('loggedIn') === 'true') {
+            document.getElementById('add-plugin-form').style.display = 'block'; // Show the add plugin form
+        }
+
         // Navigate to the login page when the button is clicked
         document.getElementById('login-button').addEventListener('click', function () {
             window.location.href = '/login.html'; // Redirect to login page
