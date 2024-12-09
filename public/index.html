@@ -1,21 +1,94 @@
-<div id="plugins-list">
-    <!-- Plugins will be dynamically loaded here -->
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PvpClub Plugins</title>
+    <!-- Add some basic styling -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #2C2F33; /* Minecraft-themed dark background */
+            color: #FFF; /* Light text for contrast */
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #23272A; /* Slightly darker header */
+            padding: 20px;
+            text-align: center;
+        }
+        header h1 {
+            font-size: 2em;
+            color: #43B581; /* Minecraft green accent */
+            margin: 0;
+        }
+        #plugins-list {
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .plugin {
+            background-color: #3E4347; /* Dark card background */
+            border: 2px solid #7289DA; /* Blue Minecraft accent */
+            border-radius: 8px;
+            padding: 15px;
+            width: 300px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        .plugin h3 {
+            font-size: 1.5em;
+            color: #43B581;
+        }
+        .plugin p {
+            font-size: 0.9em;
+            color: #FFF;
+        }
+        .plugin a {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 15px;
+            background-color: #7289DA;
+            color: #FFF;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .plugin a:hover {
+            background-color: #5A6EB9;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>PvpClub Plugins</h1>
+        <p>Download plugins compatible with various Minecraft versions!</p>
+    </header>
 
-<script>
-    fetch('/server/get_plugins.php')
-        .then(response => response.json())
-        .then(data => {
-            const list = document.getElementById('plugins-list');
-            list.innerHTML = data.map(plugin => `
-                <div class="plugin">
-                    <h3>${plugin.name}</h3>
-                    <p>${plugin.description}</p>
-                    <p>Minecraft Versions: ${plugin.version_from} to ${plugin.version_to || 'Latest'}</p>
-                    <p>Java Version: ${plugin.java_version}</p>
-                    <a href="${plugin.download_url}" target="_blank">Download Plugin</a>
-                </div>
-            `).join('');
-        })
-        .catch(err => console.error('Error loading plugins:', err));
-</script>
+    <div id="plugins-list">
+        <!-- Plugins will be dynamically loaded here -->
+    </div>
+
+    <!-- JavaScript to load plugins dynamically -->
+    <script>
+        fetch('/server/get_plugins.php')
+            .then(response => response.json())
+            .then(data => {
+                const list = document.getElementById('plugins-list');
+                list.innerHTML = data.map(plugin => `
+                    <div class="plugin">
+                        <h3>${plugin.name}</h3>
+                        <p>${plugin.description}</p>
+                        <p>Minecraft Versions: ${plugin.version_from} to ${plugin.version_to || 'Latest'}</p>
+                        <p>Java Version: ${plugin.java_version}</p>
+                        <a href="${plugin.download_url}" target="_blank">Download Plugin</a>
+                    </div>
+                `).join('');
+            })
+            .catch(err => console.error('Error loading plugins:', err));
+    </script>
+</body>
+</html>
