@@ -12,14 +12,8 @@
         <p>Download and manage Minecraft plugins!</p>
     </header>
 
-    <div id="login-section">
-        <h2>Login</h2>
-        <form id="loginForm">
-            <input type="text" name="username" placeholder="Username" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <button type="submit">Login</button>
-        </form>
-        <p id="login-status"></p>
+    <div id="plugins-list">
+        <!-- Plugins will be dynamically loaded here -->
     </div>
 
     <div id="add-plugin-form" style="display: none;">
@@ -36,47 +30,18 @@
         </form>
     </div>
 
-    <div id="plugins-list">
-        <!-- Plugins will be dynamically loaded here -->
-    </div>
-
     <script>
-        // Handle Login
-        document.getElementById('loginForm').addEventListener('submit', function (e) {
-            e.preventDefault();
-            const formData = new FormData(e.target);
-
-            fetch('/server/login.php', {
-                method: 'POST',
-                body: formData
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status === 'success') {
-                        document.getElementById('login-status').textContent = 'Login successful!';
-                        if (data.role === 'admin') {
-                            document.getElementById('add-plugin-form').style.display = 'block';
-                        }
-                        location.reload();
-                    } else {
-                        document.getElementById('login-status').textContent = 'Login failed!';
-                    }
-                });
-        });
-
-        // Show Plugins
         fetch('/server/get_plugins.php')
             .then(response => response.json())
             .then(data => {
                 const list = document.getElementById('plugins-list');
                 list.innerHTML = data.map(plugin => `
-                    <div class="plugin">
+                    <div class="plugin" onclick="window.location.href='${plugin.download_url}'">
                         <h3>${plugin.name}</h3>
                         <img src="${plugin.logo_url}" alt="${plugin.name}" width="100%">
                         <p>${plugin.description}</p>
                         <p>Minecraft Versions: ${plugin.version_from} to ${plugin.version_to || 'Latest'}</p>
                         <p>Java Version: ${plugin.java_version}</p>
-                        <a href="${plugin.download_url}" target="_blank">Download Plugin</a>
                     </div>
                 `).join('');
             });
