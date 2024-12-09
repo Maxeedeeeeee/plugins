@@ -34,20 +34,11 @@
                 return;
             }
 
-            fetch('/server/register.php', {
-                method: 'POST',
-                body: formData
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status === 'success') {
-                        window.location.href = '/login.html'; // Redirect to login after registration
-                    } else {
-                        document.getElementById('register-status').textContent = 'Registration failed!';
-                    }
-                });
+            // Save registration info to localStorage (simplified for now)
+            localStorage.setItem('username', formData.get('username'));
+            localStorage.setItem('password', formData.get('password'));
+            window.location.href = '/login.html'; // Redirect to login page
         });
     </script>
 </body>
 </html>
-
