@@ -1,14 +1,13 @@
 <?php
-$host = 'sql205.infinityfree.com'; // MySQL hostname
-$db = 'if0_37877650_mysql';       // MySQL database name
-$user = 'if0_37877650';           // MySQL username
-$pass = 'dudestopnow';     // Replace with the actual MySQL password
-$port = 3306;                     // MySQL port (optional, default is 3306)
+$host = 'sql205.infinityfree.com';
+$db = 'if0_37877650_mysql';
+$user = 'if0_37877650';
+$pass = 'dudestopnow'; // Replace with your actual password
 
 try {
-    $pdo = new PDO("mysql:host=$host;dbname=$db;port=$port", $user, $pass);
+    $pdo = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
-    die("Could not connect to the database: " . $e->getMessage());
+    die("Database connection failed: " . $e->getMessage());
 }
 ?>
