@@ -28,20 +28,14 @@
             e.preventDefault();
             const formData = new FormData(e.target);
 
-            fetch('/server/login.php', {
-                method: 'POST',
-                body: formData
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status === 'success') {
-                        window.location.href = '/'; // Redirect to homepage after login
-                    } else {
-                        document.getElementById('login-status').textContent = 'Login failed!';
-                    }
-                });
+            // Use localStorage to store login status (simplified for now)
+            if (formData.get('username') === 'admin' && formData.get('password') === 'Trent@111') {
+                localStorage.setItem('loggedIn', true); // Set login status in local storage
+                window.location.href = '/'; // Redirect to homepage
+            } else {
+                document.getElementById('login-status').textContent = 'Login failed!';
+            }
         });
     </script>
 </body>
 </html>
-
