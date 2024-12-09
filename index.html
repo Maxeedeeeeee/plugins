@@ -1,1 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PvpClub Plugins</title>
+    <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+    <header>
+        <h1>PvpClub Plugins</h1>
+        <p>Download and manage Minecraft plugins!</p>
+    </header>
 
+    <div id="login-section">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+        <p id="login-status"></p>
+    </div>
+
+    <div id="add-plugin-form" style="display: none;">
+        <h2>Add Plugin</h2>
+        <form id="addPluginForm">
+            <input type="text" name="name" placeholder="Plugin Name" required>
+            <textarea name="description" placeholder="Description"></textarea>
+            <input type="text" name="version_from" placeholder="Version From">
+            <input type="text" name="version_to" placeholder="Version To">
+            <input type="text" name="java_version" placeholder="Java Version">
+            <input type="url" name="download_url" placeholder="Download URL" required>
+            <input type="url" name="logo_url" placeholder="Logo URL">
+            <button type="submit">Add Plugin</button>
+        </form>
+    </div>
+
+    <div id="plugins-list">
+        <!-- Plugins will be dynamically loaded here -->
+    </div>
+
+    <script>
+        // Handle Login
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+
+            fetch('/server/login.php', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        document.getElementById('login-status').textContent = 'Login successful!';
+                        if (data.role === 'admin') {
+                            document.getElementById('add-plugin-form').style.display = 'block';
+                        }
+                        location.reload();
+                    } else {
+                        document.getElementById('login-status').textContent = 'Login failed!';
+                    }
+                });
+        });
+
+        // Show Plugins
+        fetch('/server/get_plugins.php')
+            .then(response => response.json())
+            .then(data => {
+                const list = document.getElementById('plugins-list');
+                list.innerHTML = data.map(plugin => `
+                    <div class="plugin">
+                        <h3>${plugin.name}</h3>
+                        <img src="${plugin.logo_url}" alt="${plugin.name}" width="100%">
+                        <p>${plugin.description}</p>
+                        <p>Minecraft Versions: ${plugin.version_from} to ${plugin.version_to || 'Latest'}</p>
+                        <p>Java Version: ${plugin.java_version}</p>
+                        <a href="${plugin.download_url}" target="_blank">Download Plugin</a>
+                    </div>
+                `).join('');
+            });
+    </script>
+</body>
+</html>
