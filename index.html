@@ -10,6 +10,7 @@
     <header>
         <h1>PvpClub Plugins</h1>
         <p>Download and manage Minecraft plugins!</p>
+        <button id="login-button">Login / Register</button>
     </header>
 
     <div id="plugins-list">
@@ -31,6 +32,11 @@
     </div>
 
     <script>
+        // Navigate to the login page when the button is clicked
+        document.getElementById('login-button').addEventListener('click', function () {
+            window.location.href = '/login.html'; // Redirect to login page
+        });
+
         fetch('/server/get_plugins.php')
             .then(response => response.json())
             .then(data => {
