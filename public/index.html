@@ -1,25 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>PvpClub Plugins</title>
-</head>
-<body>
-    <header>
-        <h1>PvpClub Plugins</h1>
-    </header>
-    <main>
-        <div class="filter">
-            <label for="version">Minecraft Version:</label>
-            <input type="text" id="version" placeholder="e.g., 1.20.4">
-            <label for="java_version">Java Version:</label>
-            <input type="text" id="java_version" placeholder="e.g., Java 17">
-            <button id="filter-btn">Filter</button>
-        </div>
-        <div id="plugins-list"></div>
-    </main>
-    <script src="scripts.js"></script>
-</body>
-</html>
+<div id="plugins-list">
+    <!-- Plugins will be dynamically loaded here -->
+</div>
+
+<script>
+    fetch('/server/get_plugins.php')
+        .then(response => response.json())
+        .then(data => {
+            const list = document.getElementById('plugins-list');
+            list.innerHTML = data.map(plugin => `
+                <div class="plugin">
+                    <h3>${plugin.name}</h3>
+                    <p>${plugin.description}</p>
+                    <p>Minecraft Versions: ${plugin.version_from} to ${plugin.version_to || 'Latest'}</p>
+                    <p>Java Version: ${plugin.java_version}</p>
+                    <a href="${plugin.download_url}" target="_blank">Download Plugin</a>
+                </div>
+            `).join('');
+        })
+        .catch(err => console.error('Error loading plugins:', err));
+</script>
