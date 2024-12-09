@@ -1,1 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - PvpClub Plugins</title>
+    <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+    <header>
+        <h1>PvpClub Plugins</h1>
+        <p>Register a new account to manage and download plugins</p>
+    </header>
+
+    <div id="register-section">
+        <h2>Register</h2>
+        <form id="registerForm">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+            <button type="submit">Register</button>
+        </form>
+        <p id="register-status"></p>
+        <p>Already have an account? <a href="/login.html">Login here</a></p>
+    </div>
+
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            
+            if (formData.get('password') !== formData.get('confirm_password')) {
+                document.getElementById('register-status').textContent = 'Passwords do not match!';
+                return;
+            }
+
+            fetch('/server/register.php', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        window.location.href = '/login.html'; // Redirect to login after registration
+                    } else {
+                        document.getElementById('register-status').textContent = 'Registration failed!';
+                    }
+                });
+        });
+    </script>
+</body>
+</html>
 
