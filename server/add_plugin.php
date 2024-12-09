@@ -21,6 +21,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'created_by' => $_SESSION['user_id']
     ]);
 
-    echo json_encode(['status' => 'success', 'message' => 'Plugin added successfully']);
+    echo json_encode(['status' => 'success']);
 }
 ?>
