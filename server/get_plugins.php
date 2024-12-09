@@ -1,7 +1,8 @@
 <?php
 include 'db.php';
 
-$query = "SELECT * FROM plugins ORDER BY created_at DESC";
-$stmt = $pdo->query($query);
-echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
+$stmt = $pdo->query("SELECT * FROM plugins ORDER BY created_at DESC");
+$plugins = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+echo json_encode($plugins);
 ?>
